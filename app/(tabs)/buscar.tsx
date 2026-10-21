@@ -11,6 +11,9 @@ import { useAppStore } from '@/store/useAppStore';
 import { emBreve } from '@/store/useToast';
 import { colors, mapColors, mapShapes, radius, shadow, size, space, type } from '@/theme';
 
+// "Até R$ 3 mil" vira "até R$ 3 mil"; "R$ 3 a 4,5 mil" fica como está.
+const noMeioDaFrase = (texto: string) => (/^\p{Lu}\p{Ll}/u.test(texto) ? texto.charAt(0).toLowerCase() + texto.slice(1) : texto);
+
 const contarImoveis = (n: number) => (n === 1 ? '1 imóvel' : `${n} imóveis`);
 
 export default function BuscarScreen() {
@@ -59,7 +62,7 @@ function Lista({
   const alternarFavorito = useAppStore((s) => s.alternarFavorito);
   const titulo = filtrado ? 'Cabem no seu bolso' : 'Real Parque e região';
   const subtitulo = filtrado
-    ? `Aluguel na faixa ${faixaLabel.charAt(0).toLowerCase()}${faixaLabel.slice(1)} · ${contarImoveis(imoveis.length)}`
+    ? `Aluguel na faixa ${noMeioDaFrase(faixaLabel)} · ${contarImoveis(imoveis.length)}`
     : `${contarImoveis(imoveis.length)} com opção de compra`;
 
   return (
