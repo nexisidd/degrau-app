@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "degrau-app",
     "name": "Degrau",
     "slug": "degrau",
     "version": "1.0.0",
