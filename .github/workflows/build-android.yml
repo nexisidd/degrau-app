@@ -1,0 +1,33 @@
+name: Gerar APK Android
+
+# Roda pelo botão "Run workflow" na aba Actions do GitHub (funciona pelo celular).
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar EAS e entrar na conta Expo
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Ligar o projeto à conta Expo
+        run: eas init --force --non-interactive
+
+      - name: Gerar o APK na nuvem do Expo
+        run: eas build --platform android --profile preview --non-interactive --no-wait
