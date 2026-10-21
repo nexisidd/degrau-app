@@ -11,6 +11,19 @@ npx expo start
 
 Abra o app **Expo Go** no celular e leia o QR code (no iPhone, pela câmera). Celular e computador precisam estar na mesma rede Wi-Fi; se não estiverem, use `npx expo start --tunnel`.
 
+## Instalar no Android (APK)
+
+Precisa de uma conta grátis em [expo.dev](https://expo.dev).
+
+```bash
+npx eas-cli@latest login
+npx eas-cli@latest build -p android --profile preview
+```
+
+Na primeira vez, o EAS pergunta se pode criar o projeto na sua conta e gerar a chave de assinatura: responda sim às duas. O build roda na nuvem do Expo (cerca de 10 a 15 minutos). No fim aparecem um link e um QR code: abra no celular, baixe o APK e instale, permitindo a instalação de fontes desconhecidas quando o Android pedir.
+
+Para gerar uma nova versão depois de mudar o código, rode o mesmo comando `build` de novo.
+
 Outros comandos:
 
 ```bash
